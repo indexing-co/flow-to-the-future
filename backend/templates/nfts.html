@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NFTs</title>
+  </head>
+  <body>
+    <h1>NFTs for {{ eth_address }}</h1>
+    <form action="/submit_nfts?eth_address={{ eth_address }}" method="POST">
+      {% for nft in nfts %}
+      <div>
+        <input
+          type="checkbox"
+          name="nft"
+          value="{{ nft.token_id }}"
+          id="{{ nft.token_id }}"
+        />
+        <label for="{{ nft.token_id }}">
+          <img src="{{ nft.image_url }}" alt="{{ nft.name }}" width="100" />
+          <h2>{{ nft.name }}</h2>
+          <p>{{ nft.description }}</p>
+        </label>
+      </div>
+      {% endfor %}
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
