@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Orbitron } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import WovnIcon from "./icons/wovn";
+import IndexingIcon from "./icons/indexing-co";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -23,32 +25,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={orbitron.className}>
-        <div className="relative h-screen overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            className="absolute -z-10 w-auto min-w-full min-h-full max-w-none pointer-events-none"
-          >
-            <source src={`/videos/bg.mp4`} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="flex flex-col gap-4 pt-32 h-screen w-screen text-black">
-            <div className="fixed flex justify-between items-center top-10 w-full px-10">
-              <Link href={"/"}>
-                <Image
-                  src={"/images/logo.png"}
-                  width={301}
-                  height={92}
-                  alt="Mint to the future"
-                />
-              </Link>
-              <Link href={"#"} className="font-bold text-lg text-white">
-                Explore other nfts
-              </Link>
-            </div>
-            {children}
-          </div>
+        <video
+          autoPlay
+          loop
+          muted
+          className="fixed -z-10 w-auto min-w-full min-h-full max-w-none pointer-events-none"
+        >
+          <source src={`/videos/bg.mp4`} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="flex flex-col gap-4 w-full text-black">{children}</div>
+        <div className="flex bg-gray-900 justify-center items-center text-white py-5">
+          <p className="flex gap-2 items-center justify-center">
+            <span className="text-gray-700">powered by</span> <WovnIcon />
+            <span className="text-gray-700">&amp;</span>
+            <IndexingIcon />
+          </p>
         </div>
       </body>
     </html>
