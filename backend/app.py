@@ -72,7 +72,7 @@ def generate_image():
     #     print(r.status_code)
     #     print(r)
 
-    return redirect(image_url)
+    return jsonify({ "image_url": image_url })
 
 
 @app.route("/submit_nfts", methods=["POST"])
