@@ -7,7 +7,7 @@ export default function IndexingIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <path
           d="M2.67656 1.22713V0.876522H0.542435V1.22713H2.67656ZM5.65848 10.9565V0.876522H3.75824V10.9565H5.65848ZM8.87427 1.22713V0.876522H6.74015V1.22713H8.87427Z"
           fill="currentColor"
