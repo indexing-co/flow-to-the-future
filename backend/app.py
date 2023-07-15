@@ -17,13 +17,20 @@ app = Flask(__name__)
 
 # @TODO: cache results?
 def get_nfts_for_eth_address(eth_address):
-    # @TODO: change provider (?) + loop through *all* NFTs
-    url = f"https://api.opensea.io/api/v1/assets?owner={eth_address}&order_direction=desc&offset=0&limit=20"
-    headers = {"X-API-KEY": os.getenv("OS_API_KEY")}
-    response = requests.get(url, headers=headers)
-    response_json = response.json()
+    all_nfts = []
 
-    return response_json["assets"]
+    while len(all_nfts) % 100 == 0:
+        url = f"https://api.opensea.io/api/v1/assets?owner={eth_address}&order_direction=desc&offset={len(all_nfts)}&limit=100"
+        headers = {"X-API-KEY": os.getenv("OS_API_KEY")}
+        response = requests.get(url, headers=headers)
+        response_json = response.json()
+        new_nfts = response_json["assets"]
+
+        all_nfts += new_nfts
+        if len(new_nfts) < 100:
+            break
+
+    return all_nfts
 
 
 def generate_prompt_from_nfts(nfts):
@@ -43,13 +50,18 @@ def generate_prompt_from_nfts(nfts):
 def get_nfts():
     eth_address = request.args.get("eth_address")
     nfts = get_nfts_for_eth_address(eth_address)
-    return render_template("nfts.html", nfts=nfts, eth_address=eth_address)
+    return jsonify(nfts)
 
 
-@app.route("/generate-image", methods=["GET"])
-def generate_image():
-    # Get the prompt from the query parameters
-    prompt = request.args.get("prompt")
+@app.route("/submit_nfts", methods=["POST"])
+def submit_nfts():
+    eth_address = request.json.get("eth_address")
+    nfts = get_nfts_for_eth_address(eth_address)
+    selected_nft_ids = request.json.get("nft_ids")
+    selected_nfts = [nft for nft in nfts if nft["token_id"] in selected_nft_ids]
+
+    # Generate a prompt
+    prompt = generate_prompt_from_nfts(selected_nfts)
 
     # Generate an image using OpenAI's API
     response = openai.Image.create(prompt=prompt, n=1, size="1024x1024")
@@ -72,17 +84,7 @@ def generate_image():
     #     print(r.status_code)
     #     print(r)
 
-    return jsonify({ "image_url": image_url })
-
-
-@app.route("/submit_nfts", methods=["POST"])
-def submit_nfts():
-    eth_address = request.args.get("eth_address")
-    nfts = get_nfts_for_eth_address(eth_address)
-    selected_nft_ids = request.form.getlist("nft")
-    selected_nfts = [nft for nft in nfts if nft["token_id"] in selected_nft_ids]
-    prompt = generate_prompt_from_nfts(selected_nfts)
-    return redirect(url_for("generate_image", prompt=prompt))
+    return jsonify({"image_url": image_url})
 
 
 @app.route("/create_flow_account", methods=["GET"])
@@ -100,7 +102,7 @@ def create_flow_account():
     return (
         jsonify(
             {
-                "address": "<todo>",  # @TODO: create new address
+                "address": "invalid-address",  # @TODO: create new address
                 "public_key": public_key.public_bytes(
                     encoding=serialization.Encoding.PEM,
                     format=serialization.PublicFormat.SubjectPublicKeyInfo,
@@ -109,18 +111,6 @@ def create_flow_account():
         ),
         200,
     )
-
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-@app.route("/submit", methods=["POST"])
-def submit():
-    eth_address = request.form["eth_address"]
-    # Redirect to the /get_nfts route after getting the address
-    return redirect(url_for("get_nfts", eth_address=eth_address))
 
 
 if __name__ == "__main__":

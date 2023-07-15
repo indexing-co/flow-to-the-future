@@ -7,7 +7,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "rickandmortyapi.com",
+        hostname: "flowcapacitor.fly.dev",
+      },
+      {
+        protocol: "https",
+        hostname: "ipfs.io",
+      },
+      {
+        protocol: "https",
+        hostname: "i.seadn.io",
       },
     ],
   },
