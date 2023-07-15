@@ -37,9 +37,14 @@ export default function RootLayout({
         <div className="flex flex-col gap-4 w-full text-black">{children}</div>
         <div className="flex bg-gray-900 justify-center items-center text-white py-5">
           <p className="flex gap-2 items-center justify-center">
-            <span className="text-gray-700">powered by</span> <WovnIcon />
+            <span className="text-gray-700">powered by</span>{" "}
+            <a href="https://www.wovn.xyz" target="_blank" rel="noreferrer">
+              <WovnIcon />
+            </a>
             <span className="text-gray-700">&amp;</span>
-            <IndexingIcon />
+            <a href="https://www.indexing.co" target="_blank" rel="noreferrer">
+              <IndexingIcon />
+            </a>
           </p>
         </div>
       </body>
