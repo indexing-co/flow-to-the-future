@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HeaderExplorer from "../components/header-explorer";
+import HeaderExplorer from "@/components/header-explorer";
 
 export default async function NFTs() {
   const res = await fetch("https://rickandmortyapi.com/api/character");

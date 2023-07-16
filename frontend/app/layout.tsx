@@ -1,10 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Orbitron } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
-import WovnIcon from "./icons/wovn";
-import IndexingIcon from "./icons/indexing-co";
+import WovnIcon from "@/icons/wovn";
+import IndexingIcon from "@/icons/indexing-co";
 
 const orbitron = Orbitron({
   subsets: ["latin"],

@@ -1,6 +1,6 @@
 "use client";
 
-import CloseIcon from "../icons/close";
+import CloseIcon from "@/icons/close";
 
 const handleBackClick = () => {
   window.history.back();

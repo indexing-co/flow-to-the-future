@@ -1,8 +1,9 @@
 import Image from "next/image";
-import checkWallet from "./actions/check-wallet";
-import Header from "./components/header";
-import Arrow from "./icons/arrow";
-import SubmitArrowIcon from "./icons/submit-arrow";
+import checkWallet from "../actions/check-wallet";
+import Header from "@/components/header";
+import Arrow from "@/icons/arrow";
+import SubmitArrowIcon from "@/icons/submit-arrow";
+import { handleChangeWallet } from "@/utils";
 
 export default function Home() {
   return (
@@ -19,7 +20,9 @@ export default function Home() {
             </label>
             <input
               required
+              // autoComplete="off"
               name="wallet"
+              onChange={handleChangeWallet}
               className="bg-black/30 w-[95%] mb-10 rounded px-6 py-6 text-xl outline outline-2 outline-offset-2 outline-green-1 text-white"
             />
           </div>

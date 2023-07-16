@@ -1,25 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
-import Header from "../components/header";
-import CompassIcon from "../icons/compass";
-import TwitterIcon from "../icons/twitter";
-import WalletIcon from "../icons/wallet";
+import { cookies } from "next/headers";
+
+import GeneratedImage from "@/components/generated-image";
+import Header from "@/components/header";
+import CompassIcon from "@/icons/compass";
+import TwitterIcon from "@/icons/twitter";
+import WalletIcon from "@/icons/wallet";
 
 export default async function Future() {
+  const cookieStore = cookies();
+  const image = cookieStore.get("image");
+
   return (
     <div className="flex flex-col gap-10 mb-10">
-      <Header
-        title="Share and Claim Your NFT"
-        wallet="0xa62d...3178"
-        backBtnLink="/nfts"
-      />
+      <Header title="Share and Claim Your NFT" backBtnLink="/nfts" />
       <div className="flex items-center justify-center">
-        <Image
-          src={"/images/nft-sample.png"}
-          alt="nft generated for 0xa62d...3178"
-          width={600}
-          height={600}
-        />
+        {/* <pre>{JSON.stringify(image, null, 2)}</pre> */}
+        <GeneratedImage image={image?.value} />
       </div>
       <div className="flex items-center justify-center gap-6 uppercase tracking-widest text-lg text-white">
         <Link

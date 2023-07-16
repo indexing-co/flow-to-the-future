@@ -1,6 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import ArrowLeft from "../icons/arrow-left";
+import ArrowLeft from "@/icons/arrow-left";
 
 export default function Header({
   title,
@@ -8,8 +9,8 @@ export default function Header({
   backBtnLink,
 }: {
   title?: string;
-  backBtnLink?: string;
   wallet?: string;
+  backBtnLink?: string;
 }) {
   if (wallet) {
     return (
@@ -34,7 +35,7 @@ export default function Header({
             width={52}
             height={40}
           />
-          {wallet}
+          {`${wallet.substring(0, 5)}...${wallet.substring(wallet.length - 5)}`}
         </div>
       </header>
     );
@@ -50,7 +51,7 @@ export default function Header({
           alt="Mint to the future"
         />
       </Link>
-      <Link href={"#"} className="font-bold text-lg text-white">
+      <Link href={"/explore"} className="font-bold text-lg text-white">
         Explore other nfts
       </Link>
     </header>
