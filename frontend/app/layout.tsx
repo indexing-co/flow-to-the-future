@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={orbitron.className}>
+      <body className={`${orbitron.className} tracking-widest`}>
         <video
           autoPlay
           loop

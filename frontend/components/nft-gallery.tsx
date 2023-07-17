@@ -28,7 +28,7 @@ export default function NFTGallery({
     <form action={sendNFTs} className="flex flex-col gap-8 mb-10">
       <input type="hidden" name="eth_address" value={wallet} />
       {/* <input type="hidden" name="eth_address" value={wallet} /> */}
-      <div className="flex flex-wrap w-full gap-4 justify-center">
+      <div className="flex flex-wrap w-full gap-4 justify-center pb-28">
         {nfts.map((item) => (
           <label
             htmlFor={`nft-${item.token_id}`}
@@ -52,13 +52,21 @@ export default function NFTGallery({
           </label>
         ))}
       </div>
-      <button
-        type="submit"
-        disabled={selectedNFTs.length === 0 || selectedNFTs.length > 3}
-        className="flex items-center gap-4 py-4 px-32 m-auto rounded border bg-black uppercase font-bold text-white transition-all hover:bg-white hover:text-black disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none"
-      >
-        Ready, set, go <SubmitArrowIcon />
-      </button>
+      <div className="flex flex-col gap-3 w-full fixed bottom-20">
+        {selectedNFTs.length === 0 ||
+          (selectedNFTs.length > 3 && (
+            <p className="bg-black p-3 text-red-400 text-lg font-bold mx-auto">
+              Please select up to 3
+            </p>
+          ))}
+        <button
+          type="submit"
+          disabled={selectedNFTs.length === 0 || selectedNFTs.length > 3}
+          className="flex items-center gap-4 py-4 px-32 m-auto rounded border bg-black uppercase font-bold text-white transition-all hover:bg-white hover:text-black disabled:opacity-60 disabled:cursor-not-allowed disabled:pointer-events-none"
+        >
+          Ready, set, go <SubmitArrowIcon />
+        </button>
+      </div>
     </form>
   );
 }

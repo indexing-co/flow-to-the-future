@@ -3,23 +3,29 @@ import checkWallet from "../actions/check-wallet";
 import Header from "@/components/header";
 import Arrow from "@/icons/arrow";
 import SubmitArrowIcon from "@/icons/submit-arrow";
+import ArrowDown from "@/icons/arrow-down";
 
 export default function Home() {
   return (
     <>
-      <Header />
+      <Header aboutBtn={true} />
+      <span className="absolute bottom-0 right-[20%] text-green-1 w-28">
+        Read more
+        <ArrowDown />
+      </span>
       <div className="flex flex-col mx-auto w-[950px] h-[700px] relative mb-16">
         <form action={checkWallet} className="flex flex-col flex-1 w-full">
           <div className="flex flex-1 justify-center place-items-center bg-control-panel bg-contain bg-no-repeat bg-center rounded px-12 relative">
-            <div className="absolute bottom-[270px] -left-3">
-              <Arrow />
+            <div className="flex text-green-1 items-end gap-2 absolute bottom-[270px] -left-32">
+              <span className="block translate-y-2">Start here</span> <Arrow />
             </div>
             <label htmlFor="wallet-address" className="hidden">
               Add your wallet
             </label>
             <input
               required
-              // autoComplete="off"
+              placeholder="Enter any ETH wallet with NFTs"
+              autoComplete="off"
               name="wallet"
               className="bg-black/30 w-[95%] mb-10 rounded px-6 py-6 text-xl outline outline-2 outline-offset-2 outline-green-1 text-white"
             />
@@ -34,7 +40,10 @@ export default function Home() {
       </div>
       <div className="relative flex">
         <div className="w-2/3 m-auto">
-          <h1 className="text-green-1 text-3xl uppercase font-bold tracking-widest text-center mb-16">
+          <h1
+            id="about"
+            className="text-green-1 text-3xl uppercase font-bold tracking-widest text-center mb-16"
+          >
             Help Marty McFlow
             <span className="flex justify-center items-center">
               Teleport To The Future <SubmitArrowIcon />

@@ -6,15 +6,17 @@ import ArrowLeft from "@/icons/arrow-left";
 export default function Header({
   title,
   wallet,
+  aboutBtn = false,
   backBtnLink,
 }: {
   title?: string;
   wallet?: string;
+  aboutBtn?: boolean;
   backBtnLink?: string;
 }) {
   if (wallet) {
     return (
-      <header className="grid grid-cols-3 text-white p-10 w-full">
+      <header className="grid grid-cols-3 text-white py-5 px-10 w-full">
         <div className="flex items-center">
           {backBtnLink && (
             <Link
@@ -25,10 +27,10 @@ export default function Header({
             </Link>
           )}
         </div>
-        <h1 className="text-3xl uppercase font-bold tracking-widest text-center place-self-center">
+        <h1 className="text-3xl mt-8 uppercase font-bold tracking-widest text-center place-self-center">
           {title}
         </h1>
-        <div className="flex items-center border py-2 px-4 rounded gap-4 place-self-end">
+        {/* <div className="flex items-center border py-2 px-4 rounded gap-4 place-self-end">
           <Image
             src={"/images/wallet.png"}
             alt={wallet || ""}
@@ -36,13 +38,13 @@ export default function Header({
             height={40}
           />
           {`${wallet.substring(0, 5)}...${wallet.substring(wallet.length - 5)}`}
-        </div>
+        </div> */}
       </header>
     );
   }
 
   return (
-    <header className="flex justify-between items-center w-full p-10">
+    <header className="flex justify-between items-center w-full py-5 px-10">
       <Link href={"/"}>
         <Image
           src={"/images/logo.png"}
@@ -51,9 +53,22 @@ export default function Header({
           alt="Mint to the future"
         />
       </Link>
-      <Link href={"/explore"} className="font-bold text-lg text-white">
-        Explore other nfts
-      </Link>
+      <div className="flex gap-4">
+        <Link
+          href={"/explore"}
+          className="font-bold text-lg text-green-1 backdrop-blur-lg black/40 shadow-slate-950 border border-green-1 px-4 py-3 rounded hover:bg-white hover:text-black transition uppercase"
+        >
+          Explore nfts
+        </Link>
+        {aboutBtn && (
+          <Link
+            href={"#about"}
+            className="font-bold text-lg text-green-1 backdrop-blur-lg black/40 shadow-slate-950 border border-green-1 px-4 py-3 rounded hover:bg-white hover:text-black transition uppercase"
+          >
+            About
+          </Link>
+        )}
+      </div>
     </header>
   );
 }

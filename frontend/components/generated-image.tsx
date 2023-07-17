@@ -5,7 +5,13 @@ export default function GeneratedImage({ image }: { image?: string }) {
   if (image) {
     return (
       <div className="flex flex-col">
-        <Image src={image} alt="nft generated" width={600} height={600} />
+        <Image
+          src={image}
+          alt="nft generated"
+          width={600}
+          height={600}
+          className="border-8"
+        />
       </div>
     );
   }

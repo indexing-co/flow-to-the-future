@@ -27,7 +27,7 @@ export default async function NFTs({
       {data ? (
         <>
           <Header title="Select up to 3 nfts" wallet={wallet} />
-          <p className="text-lg text-white text-center -mt-14 mb-10">
+          <p className="text-lg text-white text-center -mt-3 mb-10">
             Don’t worry, the Flow capacitor is non-custodial and will not burn
             your existing NFTs.
           </p>
