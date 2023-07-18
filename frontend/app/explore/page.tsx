@@ -1,8 +1,11 @@
 import Image from "next/image";
 import * as fcl from "@onflow/fcl";
 import HeaderExplorer from "@/components/header-explorer";
+import { revalidatePath } from "next/cache";
 
 export default async function NFTs() {
+  revalidatePath("/explore");
+
   fcl.config.put("accessNode.api", "https://rest-testnet.onflow.org");
 
   const encodedIds = await fcl.send([

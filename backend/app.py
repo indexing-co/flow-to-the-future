@@ -35,6 +35,7 @@ def get_nfts_for_eth_address(eth_address):
 
 def generate_prompt_from_nfts(nfts):
     prompt_parts = []
+    style = random.choice(["pixel art", "surrealist", "picasso", "retro", "modernist"])
 
     for nft in nfts:
         title = nft["name"]
@@ -42,7 +43,7 @@ def generate_prompt_from_nfts(nfts):
         selected_word = random.choice(words)
         prompt_parts.append(selected_word)
 
-    prompt = "self portrait in pixel art style; " + " ".join(prompt_parts)
+    prompt = f"self portrait in {style} style; " + " ".join(prompt_parts)
     return prompt
 
 
