@@ -30,8 +30,9 @@ export default function NFTGallery({
     setLoading(true);
 
     setTimeout(() => {
+      // Remove loading if takes more than 20s
       setLoading(false);
-    }, 10000);
+    }, 20000);
   };
 
   return (
