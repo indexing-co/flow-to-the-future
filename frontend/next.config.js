@@ -3,6 +3,17 @@ const nextConfig = {
   experimental: {
     serverActions: true,
   },
+  headers: () => [
+    {
+      source: "/explore",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "no-store",
+        },
+      ],
+    },
+  ],
   images: {
     remotePatterns: [
       {

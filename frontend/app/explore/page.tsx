@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import * as fcl from "@onflow/fcl";
 import HeaderExplorer from "@/components/header-explorer";
 
