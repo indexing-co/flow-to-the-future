@@ -5,16 +5,16 @@ import TwitterIcon from "@/icons/twitter";
 import ReactConfetti from "react-confetti";
 
 export default function CongratsPanel() {
-  const windowSize = useRef([window.innerWidth, window.innerHeight]);
-
   return (
     <>
-      <ReactConfetti
-        numberOfPieces={1000}
-        width={windowSize.current[0]}
-        height={windowSize.current[1]}
-        recycle={false}
-      />
+      <div className="fixed top-0 left-0 pointer-events-none w-screen h-screen overflow-hidden">
+        <ReactConfetti
+          numberOfPieces={1000}
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+        />
+      </div>
       <div className="relative flex">
         <div className="w-2/3 m-auto">
           <h1 className="text-green-1 text-3xl uppercase font-bold tracking-widest text-center mb-8">
