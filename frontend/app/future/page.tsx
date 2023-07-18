@@ -7,6 +7,8 @@ import CongratsPanel from "@/components/congrats-panel";
 export default async function Future() {
   const cookieStore = cookies();
   const image = cookieStore.get("image");
+  const address = cookieStore.get("address");
+  const privateKey = cookieStore.get("private_key");
 
   return (
     <div className="flex flex-col gap-10 mb-10">
@@ -18,7 +20,10 @@ export default async function Future() {
       <div className="flex items-center justify-center">
         <GeneratedImage image={image?.value} />
       </div>
-      <CongratsPanel />
+      <CongratsPanel
+        address={address?.value || ""}
+        privateKey={privateKey?.value || ""}
+      />
     </div>
   );
 }

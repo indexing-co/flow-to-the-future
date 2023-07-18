@@ -14,9 +14,12 @@ export default async function sendNFTs(formData: any) {
     }),
   });
 
-  const image = await res.json();
+  const json = await res.json();
 
-  cookies().set("image", image.image_url);
+  const cookieStore = cookies();
+  cookieStore.set("image", json.image_url);
+  cookieStore.set("address", json.address);
+  cookieStore.set("private_key", json.private_key);
 
   redirect(`/future`);
 }

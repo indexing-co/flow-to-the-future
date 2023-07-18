@@ -4,14 +4,20 @@ import { useRef } from "react";
 import TwitterIcon from "@/icons/twitter";
 import ReactConfetti from "react-confetti";
 
-export default function CongratsPanel() {
+export default function CongratsPanel({
+  address,
+  privateKey,
+}: {
+  address: string;
+  privateKey: string;
+}) {
   return (
     <>
       <div className="fixed top-0 left-0 pointer-events-none w-screen h-screen overflow-hidden">
         <ReactConfetti
           numberOfPieces={1000}
-          width={window.innerWidth}
-          height={window.innerHeight}
+          width={window?.innerWidth}
+          height={window?.innerHeight}
           recycle={false}
         />
       </div>
@@ -35,12 +41,13 @@ export default function CongratsPanel() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <label htmlFor="public-key" className="text-white text-lg">
-                Public key
+                Address
               </label>
 
               <input
                 type="text"
-                placeholder="placeholder text"
+                value={address}
+                disabled
                 name=""
                 id="public-key"
                 className="rounded border bg-black px-4 py-2 text-white"
@@ -53,7 +60,8 @@ export default function CongratsPanel() {
 
               <input
                 type="text"
-                placeholder="placeholder text"
+                value={privateKey}
+                disabled
                 name=""
                 id="private-key"
                 className="rounded border bg-black px-4 py-2 text-white"

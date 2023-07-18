@@ -6,7 +6,7 @@ import os
 import random
 import requests
 
-from lib import flow_keys
+from lib import flow_utils
 
 
 load_dotenv()
@@ -42,7 +42,7 @@ def generate_prompt_from_nfts(nfts):
         selected_word = random.choice(words)
         prompt_parts.append(selected_word)
 
-    prompt = " ".join(prompt_parts)
+    prompt = "self portrait in pixel art style; " + " ".join(prompt_parts)
     return prompt
 
 
@@ -54,7 +54,7 @@ def get_nfts():
 
 
 @app.route("/submit_nfts", methods=["POST"])
-def submit_nfts():
+async def submit_nfts():
     eth_address = request.json.get("eth_address")
     nfts = get_nfts_for_eth_address(eth_address)
     selected_nft_ids = request.json.get("nft_ids")
@@ -76,40 +76,18 @@ def submit_nfts():
     # image_path = os.path.join("/tmp", image_filename)
     # with open(image_path, "rb") as f:
     #     image_data = f
-
     #     r = requests.post(
     #         "http://127.0.0.1:5001/api/v0/add",
     #         files={image_filename: image_data},
     #     )
-    #     print(r.status_code)
-    #     print(r)
 
-    return jsonify({"image_url": image_url})
+    address, private_key = await flow_utils.generate_account()
 
+    tx_id = await flow_utils.send_nft(address, prompt, image_url)
+    print(f"https://testnet.flowscan.org/transaction/{tx_id}")
 
-@app.route("/create_flow_account", methods=["GET"])
-def create_flow_account():
-    # Create a new private key
-    private_key = flow_keys.PrivateKey()
-    private_key.generate()  # Generate the private key
-
-    # Create a new public key
-    public_key = private_key.PublicKey  # Remove the parentheses
-
-    # @TODO: create a new address
-    # @TODO: email instructions for retrieval of private key (?)
-
-    return (
-        jsonify(
-            {
-                "address": "invalid-address",  # @TODO: create new address
-                "public_key": public_key.public_bytes(
-                    encoding=serialization.Encoding.PEM,
-                    format=serialization.PublicFormat.SubjectPublicKeyInfo,
-                ).decode(),
-            }
-        ),
-        200,
+    return jsonify(
+        {"address": address, "image_url": image_url, "private_key": private_key}
     )
 
 

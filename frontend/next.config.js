@@ -5,10 +5,9 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      // TODO: remove this once the /explore page is loading correct API
       {
         protocol: "https",
-        hostname: "rickandmortyapi.com",
+        hostname: "www.flowcapacitor.xyz",
       },
       {
         protocol: "https",
