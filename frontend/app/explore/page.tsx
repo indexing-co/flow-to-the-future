@@ -1,11 +1,10 @@
 import Image from "next/image";
 import * as fcl from "@onflow/fcl";
 import HeaderExplorer from "@/components/header-explorer";
-import { revalidatePath } from "next/cache";
+
+export const revalidate = 10; // reset cache every 60 seconds
 
 export default async function NFTs() {
-  revalidatePath("/explore");
-
   fcl.config.put("accessNode.api", "https://rest-testnet.onflow.org");
 
   const encodedIds = await fcl.send([
@@ -24,7 +23,7 @@ export default async function NFTs() {
   const decodedIds = (await fcl.decode(encodedIds)) as string[];
 
   const encodedMetadatas = (await Promise.all(
-    decodedIds.slice(0, 12).map((did) =>
+    decodedIds.map((did) =>
       fcl.send([
         fcl.script`
     import FlowCapacitorContract from 0x5ddebd0780c440d4
